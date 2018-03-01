@@ -100,7 +100,10 @@ public class PresenterTests {
         presenter.loginButtonClicked();
 
         // Verify view interactions
-        verify(mockView, times(2)).getFirstName(); // Called two more times in the loginButtonClicked call
+        // Called two times in the loginButtonClicked call
+        // Once for checking if empty
+        // Once when createUser is called
+        verify(mockView, times(2)).getFirstName();
         verify(mockView, times(2)).getLastName();
 
         // Make sure repository saved the user
