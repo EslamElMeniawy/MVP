@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 
+ext {
+    supportVersion = "27.0.2"
+    daggerVersion = "2.14.1"
+    butterKnifeVersion = "8.8.1"
+    retrofitVersion = "2.3.0"
+}
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -16,21 +23,47 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:27.0.2'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
-    // Unit tests
+    // Support Libraries
+    implementation "com.android.support:appcompat-v7:$supportVersion"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation "com.android.support:design:$supportVersion"
+    implementation "com.android.support:support-v4:$supportVersion"
+    implementation "com.android.support:recyclerview-v7:$supportVersion"
+
+    // Test libraries
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:1.10.19'
-
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    // Dagger
-    implementation 'com.google.dagger:dagger:2.14.1'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.14.1'
+    // Injection
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$daggerVersion"
+    implementation "com.jakewharton:butterknife:$butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
+
+    // REST interactions
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+
+    // JSON parsing
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // HTTP logging
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.5.0'
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:2.1.9"
+    implementation "io.reactivex.rxjava2:rxandroid:2.0.2"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 }
