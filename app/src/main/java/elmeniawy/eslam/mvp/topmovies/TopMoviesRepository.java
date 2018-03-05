@@ -75,7 +75,7 @@ public class TopMoviesRepository implements TopMoviesRepositoryInterface {
     public Observable<String> getCountriesFromNetwork() {
         return getResultsFromNetwork()
                 .concatMap(result -> moreInfoApiService.getCountry(result.getTitle()))
-                .concatMap(omdbApi -> Observable.just(omdbApi.getCountry()))
+                .concatMap(omdbApi -> Observable.just(omdbApi.getCountry() == null ? "" : omdbApi.getCountry()))
                 .doOnNext(s -> countries.add(s));
     }
 
