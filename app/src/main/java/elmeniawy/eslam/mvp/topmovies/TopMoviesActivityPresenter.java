@@ -2,9 +2,6 @@ package elmeniawy.eslam.mvp.topmovies;
 
 import android.support.annotation.Nullable;
 
-import org.reactivestreams.Subscription;
-
-import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -33,11 +30,7 @@ public class TopMoviesActivityPresenter implements TopMoviesActivityMVP.Presente
                 .result()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnComplete(() -> {
-                })
-                .doOnError(this::displayError)
-                .doOnNext(this::displayData)
-                .subscribe();
+                .subscribe(this::displayData, this::displayError);
     }
 
     @Override
